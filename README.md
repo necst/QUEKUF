@@ -74,7 +74,7 @@ python3 Scripts/datasetGen.py <Code_Length>
 where `<Code_Length>` is the target code length. 
 The script will generate a new dataset called `Decoder_dataset.txt`, which can then be fed to the appropriate decoder with:
 ```
-./Build/D<Code_Length>/QUEKUF Build/D<Code_Length>/QUEKUF.xclbin <path/to/custom/dataset>
+./Build/D<Code_Length>/QUEKUF Build/D<Code_Length>/QUEKUF.xclbin <path/to/custom/dataset/Decoder_dataset.txt>
 ```
 NOTE: a dataset generated for a specific `<Code_Length>` must be fed to the corresponding decoder that supports the same code length
 
