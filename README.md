@@ -11,8 +11,10 @@ Our architecture attains up to 20.14X improvement in execution time over a C++ i
 * `Build` contains prebuilt binaries for different code distance configurations;
 * `Design` contains source files for our design;
 * `HostCode` contains source files for the host application;
-* `Scripts` contains scripts for dataset generation and utilities;
+* `Scripts` contains scripts for dataset generation and testing;
 * `Testbench` contains source file for the Vitis HLS testbench.
+
+The main folder also contains makefiles to build the design.
 
 ## Default Configurations
 
@@ -22,29 +24,40 @@ Each folder contains a precompiled host, a bitstream, and a dataset that can be 
 
 ## Building QUEKUF
 
-To build the hardware and host, clone the repository:
+Firstly, clone the repository:
 ```
 git clone https://github.com/necst/QUEKUF.git
 ```
-
 Comment out the line in  `Design/Controller.cpp` that says:
 
 `#define CBUILD`
 
 This line is used when compiling the sw_emu.
 
-Inside the repository, run:
-
-```
-make all TARGET=hw PLATFORM=<target_platform> FREQ_MHZ=<frequency>
-```
-where the `<target_platform>` is the target FPGA and the recommended `<frequency>` is 300 MHz.
-
 To choose the code length, just modify the line in `Design/Defines.h` and `HostCode/host.h` that says:
 
 `#define D <code_length>`
 
 To whichever code length you prefer.
+
+Enter the repository, then run:
+
+```
+make all TARGET=sw_emu/hw_emu/hw PLATFORM=<target_platform> FREQ_MHZ=<frequency>
+```
+where the `<target_platform>` is the shell of the target FPGA (xilinx_u55c_gen3x16_xdma_base_3 for the AMD Xilinx U55c) and the recommended `<frequency>` is 300 MHz.
+Using `all` will generate the bitstream and compile the host application.
+Using `TARGET=hw` will generate a bitstream that can be run on the FPGA.
+
+## Reproducing Paper Results (Artifact RAW24)
+
+To reproduce the results for the RAW24 paper, execute the following commands:
+```
+cd Scripts
+python3 runTests.py
+```
+The `runTests.py` script will output a table on the terminal, reporting all the results of Table I and Figure 5 for our architecture.
+Furthermore, it will produce a .pdf file to analyze the scaling of decoding time (Figure 4 in the paper).
 
 ## Running the Experiments
 
