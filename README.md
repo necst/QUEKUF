@@ -57,7 +57,7 @@ cd Scripts
 python3 runTests.py
 ```
 The `runTests.py` script will output a table on the terminal, reporting all the results of Table I and Figure 5 for our architecture.
-Furthermore, it will produce a .pdf file to analyze the scaling of decoding time (Figure 4 in the paper).
+Furthermore, it will produce a .pdf file reporting the plot we used to analyze the scaling of decoding time (Figure 4 in the paper).
 
 ## Running the Experiments
 
