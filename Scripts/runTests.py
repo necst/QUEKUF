@@ -21,7 +21,7 @@ def run_bash_command(command, y_values):
         # Run the bash command and capture the output
         result = subprocess.run(command, shell=True, check=True, text=True, capture_output=True)
 
-        lines = result.stdout.splitlines()  # Split output into lines
+        lines = result.stdout.splitlines()  
         avg_decoding_line = [line for line in lines if "Decode AVG" in line]  
         avg_ccs_line = [line for line in lines if "Clock Cycles AVG" in line]  
         stddev_line = [line for line in lines if "Standard Deviation" in line]  
@@ -107,10 +107,10 @@ os.chdir(script_folder)
 params_cubic, covariance_cubic = curve_fit(cubic_curve, x_values, y_values)
 errors_cubic = np.sqrt(np.diag(covariance_cubic))
 
-# Compute fitted y values for linear, quadratic, cubic, and exponential curves
+# Compute fitted y values 
 y_fit_cubic = cubic_curve(x_values, *params_cubic)
 
-# Compute Mean Square Error (MSE) for linear, quadratic, cubic, and exponential curves
+# Compute Mean Square Error (MSE) 
 mse_cubic = np.mean((y_values - y_fit_cubic)**2)
 print(f"Mean Square Error (MSE) for Cubic Curve: {mse_cubic}")
 
@@ -120,7 +120,7 @@ print(f"r-squared for Cubic Curve: {r_squared}")
 adjusted_r_squared_cubic = adjusted_r_squared(y_values, y_fit_cubic, len(params_cubic))
 print(f"Adjusted r-squared for Cubic Curve: {adjusted_r_squared_cubic}")
 
-# Plotting the data and all four curves
+# Plotting the data 
 y_fit_cubic = cubic_curve(x_fit, *params_cubic)
 
 fig, ax = plt.subplots(figsize=(8, 4))
