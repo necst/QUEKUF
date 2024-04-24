@@ -1,4 +1,4 @@
-# QUEKUF - An accurate Union Find Decoder for the Toric Code
+# QUEKUF - An Accurate Union Find Decoder for Quantum Error Correction on the Toric Code
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10869867.svg)](https://doi.org/10.5281/zenodo.10869867)
 
