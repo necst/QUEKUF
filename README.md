@@ -4,11 +4,11 @@
 
 This repository contains the source code of the paper "An Accurate Union Find Decoder for Quantum Error Correction on the Toric Code", accepted at RAW24. 
 In this paper, we present QUEKUF, an FPGA-based Union Find decoder designed for quantum error correction on the toric code. 
-Our architecture attains up to 20.14X improvement in execution time over a C++ implementation while keeping a high accuracy, similar to the theoretical accuracy achieved by the Union Find algorithm (around 70%). 
+Our architecture attains up to 20.14X improvement in execution time over a C++ implementation while maintaining high accuracy, similar to the theoretical accuracy achieved by the Union Find algorithm (around 70%). 
 
 ## Structure of the Repository 
 
-* `Build` contains prebuilt binaries ofr different code distance configurations;
+* `Build` contains prebuilt binaries for different code distance configurations;
 * `Design` contains source files for our design;
 * `HostCode` contains source files for the host application;
 * `Scripts` contains scripts for dataset generation and utilities;
@@ -16,9 +16,9 @@ Our architecture attains up to 20.14X improvement in execution time over a C++ i
 
 ## Default Configurations
 
-We provide already built configurations for QUEKUF. 
-These binaries are contained in `Build` within the corresponding folder (e.g., binaries build for code distance D = 3 are stored in the `D3` folder).
-Each folder contains a precompiled host, a bitstream and a dataset that can be used to reproduce the results of the paper. 
+We provide already-built configurations for QUEKUF. 
+These binaries are contained in `Build` within the corresponding folder (e.g., binaries built for code distance D = 3 are stored in the `D3` folder).
+Each folder contains a precompiled host, a bitstream, and a dataset that can be used to reproduce the results of the paper. 
 
 ## Building QUEKUF
 
@@ -40,11 +40,11 @@ make all TARGET=hw PLATFORM=<target_platform> FREQ_MHZ=<frequency>
 ```
 where the `<target_platform>` is the target FPGA and the recommended `<frequency>` is 300 MHz.
 
-To choose the code length just modify the line in `Design/Defines.h` and `HostCode/host.h` that says:
+To choose the code length, just modify the line in `Design/Defines.h` and `HostCode/host.h` that says:
 
 `#define D <code_length>`
 
-To whichever code lenght you prefer.
+To whichever code length you prefer.
 
 ## Running the Experiments
 
@@ -67,12 +67,12 @@ Once in the desired folder, run:
 ## Experiment Customization 
 
 We provide users with the possibility to run tests with custom datasets. 
-The `Scripts/datasetGen.py` script will generate a dataset for a desired code length. This script can be run from terminal with:
+The `Scripts/datasetGen.py` script will generate a dataset for a desired code length. This script can be run from the terminal with:
 ```
 python3 Scripts/datasetGen.py <Code_Length>
 ```
 where `<Code_Length>` is the target code length. 
-The script will generate a new dataset called `Decoder_dataset.txt` which can then be fed to the appropriate decoder with:
+The script will generate a new dataset called `Decoder_dataset.txt`, which can then be fed to the appropriate decoder with:
 ```
 ./Build/D<Code_Length>/QUEKUF Build/D<Code_Length>/QUEKUF.xclbin <path/to/custom/dataset>
 ```
