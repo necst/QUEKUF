@@ -51,6 +51,10 @@ Using `TARGET=hw` will generate a bitstream that can be run on the FPGA.
 
 ## Reproducing Paper Results (Artifact RAW24)
 
+Before running the tests, check if matplotlib and scikit-learn are available on the machine. If not, run
+```
+pip install matplotlib scikit-learn
+```
 To reproduce the results for the RAW24 paper, execute the following commands:
 ```
 cd Scripts
