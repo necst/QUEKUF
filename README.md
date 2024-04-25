@@ -55,7 +55,13 @@ Before running the tests, check if matplotlib and scikit-learn are available on 
 ```
 pip install matplotlib scikit-learn
 ```
-To reproduce the results for the RAW24 paper, execute the following commands:
+Firstly, source the Xilinx Runtime XRT and Vitis with the following commands:
+```
+source /opt/xilinx/xrt/setup.sh
+source /xilinx/software/Vitis/<Vitis_Version>/settings64.sh
+```
+
+We provide a script to reproduce the results for the RAW24 paper. To run such script execute the following commands:
 ```
 cd Scripts
 python3 runTests.py
