@@ -21,4 +21,6 @@ mkdir custom_dir
 mv build_dir.hw.${platform}/QUEKUF.xclbin custom_dir/
 mv QUEKUF custom_dir/
 
+make cleanall
+
 echo "Build for code length ${code_length} finished!"
