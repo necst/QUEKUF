@@ -28,26 +28,16 @@ Firstly, clone the repository:
 ```
 git clone https://github.com/necst/QUEKUF.git
 ```
-Comment out the line in  `Design/Controller.cpp` that says:
 
-`#define CBUILD`
-
-This line is used when compiling the sw_emu.
-
-To choose the code length, just modify the line in `Design/Defines.h` and `HostCode/host.h` that says:
-
-`#define D <code_length>`
-
-To whichever code length you prefer.
-
-Enter the repository, then run:
+Enter the repository, then run the script
 
 ```
-make all TARGET=sw_emu/hw_emu/hw PLATFORM=<target_platform> FREQ_MHZ=<frequency>
+./build.sh <code_length> <target_platform> <frequency> 350
 ```
-where the `<target_platform>` is the shell of the target FPGA (xilinx_u55c_gen3x16_xdma_base_3 for the AMD Xilinx U55c) and the recommended `<frequency>` is 300 MHz.
-Using `all` will generate the bitstream and compile the host application.
-Using `TARGET=hw` will generate a bitstream that can be run on the FPGA.
+
+Where the `<target_platform>` is the shell of the target FPGA (xilinx_u55c_gen3x16_xdma_3_202210_1 for the AMD Xilinx U55c) and the recommended `<frequency>` is 350 MHz.
+
+When the script is done running, both the host and the FPGA bitstream will be available in a new folder called `custom_dir`.
 
 ## Reproducing Paper Results (Artifact RAW24)
 
@@ -88,6 +78,7 @@ Once in the desired folder, run:
 ```
 
 ## Experiment Customization 
+
 
 We provide users with the possibility to run tests with custom datasets. 
 The `Scripts/datasetGen.py` script will generate a dataset for a desired code length. This script can be run from the terminal with:
