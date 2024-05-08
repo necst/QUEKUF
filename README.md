@@ -41,9 +41,9 @@ When the script is done running, both the host and the FPGA bitstream will be av
 
 ## Reproducing Paper Results (Artifact RAW24)
 
-Before running the tests, check if matplotlib and scikit-learn are available on the machine. If not, run
+Before running the tests, check if matplotlib, scikit-learn, and pymatching are available on the machine. If not, run
 ```
-pip install matplotlib scikit-learn
+pip install matplotlib scikit-learn pymatching
 ```
 Firstly, source the Xilinx Runtime XRT and Vitis with the following commands:
 ```
