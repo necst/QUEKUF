@@ -1,6 +1,6 @@
 # QUEKUF - An Accurate Union Find Decoder for Quantum Error Correction on the Toric Code
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10869867.svg)](https://doi.org/10.5281/zenodo.10869867)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11232039.svg)](https://doi.org/10.5281/zenodo.11232039)
 
 This repository contains the source code of the paper "An Accurate Union Find Decoder for Quantum Error Correction on the Toric Code", accepted at RAW24. 
 In this paper, we present QUEKUF, an FPGA-based Union Find decoder designed for quantum error correction on the toric code. 
@@ -96,3 +96,15 @@ NOTE: a dataset generated for a specific `<Code_Length>` must be fed to the corr
 
 Contributors: Federico Valentino, Beatrice Branchini, Davide Conficconi, Donatella Sciuto, Marco Domenico Santambrogio.
 
+
+If you find this repository useful, please use the following citation:
+
+```
+@inproceedings{valentino2024anaccurate,
+    title = {An Accurate Union Find Decoder for\\Quantum Error Correction on the Toric Code},
+    author = {Valentino, Federico and Branchini, Beatrice and Conficconi, Davide and Sciuto, Donatella and Santambrogio, Marco D.}, 
+   booktitle={IEEE International Parallel and Distributed Processing Symposium Workshops (IPDPSW)},
+  year={2024},
+  note ="Accepted - To Appear"
+ } 
+```
