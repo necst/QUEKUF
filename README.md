@@ -100,11 +100,12 @@ Contributors: Federico Valentino, Beatrice Branchini, Davide Conficconi, Donatel
 If you find this repository useful, please use the following citation:
 
 ```
-@inproceedings{valentino2024anaccurate,
-    title = {An Accurate Union Find Decoder for\\Quantum Error Correction on the Toric Code},
-    author = {Valentino, Federico and Branchini, Beatrice and Conficconi, Davide and Sciuto, Donatella and Santambrogio, Marco D.}, 
-   booktitle={IEEE International Parallel and Distributed Processing Symposium Workshops (IPDPSW)},
+@inproceedings{valentino2024accurate,
+  title={An Accurate Union Find Decoder for Quantum Error Correction on the Toric Code},
+  author={Valentino, Federico and Branchini, Beatrice and Conficconi, Davide and Sciuto, Donatella and Santambrogio, Marco D},
+  booktitle={2024 IEEE International Parallel and Distributed Processing Symposium Workshops (IPDPSW)},
+  pages={99--105},
   year={2024},
-  note ="Accepted - To Appear"
- } 
+  organization={IEEE}
+}
 ```
