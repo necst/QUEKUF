@@ -49,20 +49,27 @@ def run_bash_command(command, y_values):
         # Handle any errors raised by the command
         print(f"Error: Command '{e.cmd}' returned non-zero exit status {e.returncode}")
 
-script_folder = os.path.join(os.getcwd())
-d3_folder = os.path.join(os.getcwd(), "..", "Build", "D3")
-d4_folder = os.path.join(os.getcwd(), "..", "Build", "D4")
-d5_folder = os.path.join(os.getcwd(), "..", "Build", "D5")
-d6_folder = os.path.join(os.getcwd(), "..", "Build", "D6")
-d7_folder = os.path.join(os.getcwd(), "..", "Build", "D7")
-d8_folder = os.path.join(os.getcwd(), "..", "Build", "D8")
+#P 0.001 evaluation 
 
-x_values = [3, 4, 5, 6, 7, 8]
+script_folder = os.path.join(os.getcwd())
+d3_folder = os.path.join(os.getcwd(), "..", "Build", "BUILD0.001", "D3")
+d4_folder = os.path.join(os.getcwd(), "..", "Build", "BUILD0.001", "D4")
+d5_folder = os.path.join(os.getcwd(), "..", "Build", "BUILD0.001", "D5")
+d6_folder = os.path.join(os.getcwd(), "..", "Build", "BUILD0.001", "D6")
+d7_folder = os.path.join(os.getcwd(), "..", "Build", "BUILD0.001", "D7")
+d8_folder = os.path.join(os.getcwd(), "..", "Build", "BUILD0.001", "D8")
+d9_folder = os.path.join(os.getcwd(), "..", "Build", "BUILD0.001", "D9")
+d10_folder = os.path.join(os.getcwd(), "..", "Build", "BUILD0.001", "D10")
+
+x_values = [3, 4, 5, 6, 7, 8, 9, 10]
 x_fit = np.linspace(min(x_values), max(x_values), 6)
 y_values = []
 
+# Define command
+command_path = "./QUEKUF QUEKUF.xclbin real_Decoder_dataset.txt"
+
 print("--------------------------------------------------------------------------------------")
-print("\t\t\tQUEKUF Result Evaluation")
+print("\t\t\tQUEKUF Result Evaluation for p = 0.001")
 print("--------------------------------------------------------------------------------------")
 print("d\tAvg. Decoding time\tCCs\t\tStdDev (CCs)\tAccuracy")
 
@@ -70,8 +77,6 @@ print("d\tAvg. Decoding time\tCCs\t\tStdDev (CCs)\tAccuracy")
 # Change folder
 print("3", end ="\t")
 os.chdir(d3_folder)
-# Define command
-command_path = "./QUEKUF QUEKUF.xclbin Decoder_dataset.txt"
 # Run the command
 run_bash_command(command_path, y_values)
 
@@ -134,4 +139,95 @@ ax.set_ylim(200, 4000)
 ax.legend(fontsize=8, loc='upper center', bbox_to_anchor=(0.5, -0.15), ncol=3)
 
 # Save the plot as a PDF file
-plt.savefig('cc-scaling.pdf', bbox_inches='tight')
+plt.savefig('cc-scaling-001.pdf', bbox_inches='tight')
+
+
+#p 0.1 evaluation
+
+cript_folder = os.path.join(os.getcwd())
+d3_folder = os.path.join(os.getcwd(), "..", "Build", "BUILD0.1", "D3")
+d4_folder = os.path.join(os.getcwd(), "..", "Build", "BUILD0.1", "D4")
+d5_folder = os.path.join(os.getcwd(), "..", "Build", "BUILD0.1", "D5")
+d6_folder = os.path.join(os.getcwd(), "..", "Build", "BUILD0.1", "D6")
+d7_folder = os.path.join(os.getcwd(), "..", "Build", "BUILD0.1", "D7")
+d8_folder = os.path.join(os.getcwd(), "..", "Build", "BUILD0.1", "D8")
+
+x_values = [3, 4, 5, 6, 7, 8]
+x_fit = np.linspace(min(x_values), max(x_values), 6)
+y_values = []
+
+# Define command
+command_path = "./QUEKUF QUEKUF.xclbin real_Decoder_dataset.txt"
+
+print("--------------------------------------------------------------------------------------")
+print("\t\t\tQUEKUF Result Evaluation for p = 0.1")
+print("--------------------------------------------------------------------------------------")
+print("d\tAvg. Decoding time\tCCs\t\tStdDev (CCs)\tAccuracy")
+
+# Tests with code distance 3
+# Change folder
+print("3", end ="\t")
+os.chdir(d3_folder)
+# Run the command
+run_bash_command(command_path, y_values)
+
+# Tests with code distance 4
+print("4", end ="\t")
+os.chdir(d4_folder)
+run_bash_command(command_path, y_values)
+
+# Tests with code distance 5
+print("5", end ="\t")
+os.chdir(d5_folder)
+run_bash_command(command_path, y_values)
+
+# Tests with code distance 6
+print("6", end ="\t")
+os.chdir(d6_folder)
+run_bash_command(command_path, y_values)
+
+# Tests with code distance 7
+print("7", end ="\t")
+os.chdir(d7_folder)
+run_bash_command(command_path, y_values)
+
+# Tests with code distance 8
+print("8", end ="\t")
+os.chdir(d8_folder)
+run_bash_command(command_path, y_values)
+
+# print(y_values)
+os.chdir(script_folder)
+
+# Fit the cubic curve to the data
+params_cubic, covariance_cubic = curve_fit(cubic_curve, x_values, y_values)
+errors_cubic = np.sqrt(np.diag(covariance_cubic))
+
+# Compute fitted y values 
+y_fit_cubic = cubic_curve(x_values, *params_cubic)
+
+# Compute Mean Square Error (MSE) 
+mse_cubic = np.mean((y_values - y_fit_cubic)**2)
+print(f"Mean Square Error (MSE) for Cubic Curve: {mse_cubic}")
+
+r_squared = r2_score(y_values, y_fit_cubic)
+print(f"r-squared for Cubic Curve: {r_squared}")
+
+adjusted_r_squared_cubic = adjusted_r_squared(y_values, y_fit_cubic, len(params_cubic))
+print(f"Adjusted r-squared for Cubic Curve: {adjusted_r_squared_cubic}")
+
+# Plotting the data 
+y_fit_cubic = cubic_curve(x_fit, *params_cubic)
+
+fig, ax = plt.subplots(figsize=(8, 4))
+
+ax.plot(x_fit, y_fit_cubic, linestyle='dotted', color='#d7191c', label='Fitted Curve')
+ax.scatter(x_values, y_values, marker='o', color='#2c7bb6', label='CCs Measurements')
+
+ax.set_xlabel('Code Distance', fontsize=11)
+ax.set_ylabel('CCs for Decoding', fontsize=11)
+ax.set_ylim(200, 4000)
+ax.legend(fontsize=8, loc='upper center', bbox_to_anchor=(0.5, -0.15), ncol=3)
+
+# Save the plot as a PDF file
+plt.savefig('cc-scaling-01.pdf', bbox_inches='tight')

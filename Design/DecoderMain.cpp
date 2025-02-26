@@ -1,7 +1,6 @@
 #include "DecoderMain.h"
 #include "Controller.h"
 
-
 void perfCounterProc(hls::stream<int64_t>& cmd, int64_t* out) {
     int64_t val;
     // wait to receive a value to start counting
@@ -49,10 +48,8 @@ void decoderTop(bool syndrome[SYN_LEN], bool correction[CORR_LEN], int64_t* tota
 #pragma HLS INTERFACE s_axilite port=return bundle=control
 
     bool CorrectionCPY[CORR_LEN] = {0};
+    uint8_t ones_counter = 0;
 
-
-    hls::stream<bool> syndrome_cpy;
-#pragma HLS STREAM variable=syndrome_cpy depth=CORR_LEN
     hls::stream<ap_uint<BITSACCURACY>> synBits("SyndromeErrors");
 #pragma HLS STREAM variable=synBits depth=SYN_LEN
     hls::stream<PU> infoPU("ProcessingUnitInfo");
@@ -61,10 +58,13 @@ void decoderTop(bool syndrome[SYN_LEN], bool correction[CORR_LEN], int64_t* tota
 #pragma HLS STREAM variable=correctionEdges depth=CORR_LEN
 
 
-    readSyn(syndrome, synBits, syndrome_cpy);
-    initPU(synBits, infoPU, syndrome_cpy);
-    counterDF(infoPU, correctionEdges, totalClocks);
-    translation(correctionEdges, CorrectionCPY);
+    readSyn(syndrome, synBits, ones_counter);
+    if(ones_counter > 0)
+    {
+        initPU(synBits, infoPU);
+        counterDF(infoPU, correctionEdges, totalClocks);
+        translation(correctionEdges, CorrectionCPY);
+    }
     for(int i = 0; i < CORR_LEN; i++)
     {
         correction[i] = CorrectionCPY[i];
@@ -72,48 +72,32 @@ void decoderTop(bool syndrome[SYN_LEN], bool correction[CORR_LEN], int64_t* tota
 }
 
 
-void readSyn(bool syndrome[SYN_LEN], hls::stream<ap_uint<BITSACCURACY>>& SynBits, hls::stream<bool>& syndrome_cpy)
+void readSyn(const bool syndrome[SYN_LEN], hls::stream<ap_uint<BITSACCURACY>>& SynBits, uint8_t& ones_counter)
 {
     READ_SYN_BITS:
     for(int i = 0; i < SYN_LEN; i++)
     {
+        globalSyndrome[i] = syndrome[i];
         if(syndrome[i] != 0)
         {
             SynBits.write(i);
+            ones_counter++;
         }
     }
-    READ_SYN:
-    for(int i = 0; i < SYN_LEN; i++)
-	{
-		syndrome_cpy.write(syndrome[i]);
-	}
 }
 
-void initPU(hls::stream<ap_uint<BITSACCURACY>>& SynBits, hls::stream<PU>& infoPU, hls::stream<bool>& syndrome_cpy)
+void initPU(hls::stream<ap_uint<BITSACCURACY>>& SynBits, hls::stream<PU>& infoPU)
 {
-    bool syn_cpy[SYN_LEN];
-#pragma HLS ARRAY_PARTITION variable=syn_cpy type=complete
-    SYN_CPY:
-    for(int i = 0; i < SYN_LEN; i++)
-    {
-        syn_cpy[i] = syndrome_cpy.read();
-    }
-
     INIT:
     do
     {
         PU info{};
-#pragma HLS ARRAY_PARTITION variable=info.borders.array type=complete
-#pragma HLS ARRAY_PARTITION variable=info.syn_CPY type=complete
         info.ID = SynBits.read();
         info.parity = 1;
         info.status = GROWING;
-        info.borders.pushIn(info.ID);
-        for(int i = 0; i < SYN_LEN; i++)
-        {
-#pragma HLS UNROLL
-            info.syn_CPY[i] = syn_cpy[i];
-        }
+        info.borders = 0;
+        info.borders[INDEX(info.ID)] = 1;
+        info.borders_size++;
 
         infoPU.write(info);
     }while(!SynBits.empty());

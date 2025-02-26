@@ -9,7 +9,7 @@ void controllerProcess(hls::stream<PU>& infoPE,
 
 void syncPU(hls::stream<Edge>& fuseEdges,
             hls::stream<ap_uint<BITSACCURACY>>& status,
-            hls::stream<bool>& outputChannel,
+            hls::stream<ap_uint<BITSACCURACY>>& outputChannel,
             hls::stream<bool>& done,
             hls::stream<Edge>& growEdges,
 			hls::stream<Edge>& corrEdges,

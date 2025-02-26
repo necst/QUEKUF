@@ -39,7 +39,7 @@ Where the `<target_platform>` is the shell of the target FPGA (xilinx_u55c_gen3x
 
 When the script is done running, both the host and the FPGA bitstream will be available in a new folder called `custom_dir`.
 
-## Reproducing Paper Results (Artifact RAW24)
+## Reproducing Paper Results (Artifact TRETS)
 
 Before running the tests, check if matplotlib, scikit-learn, and pymatching are available on the machine. If not, run
 ```
@@ -51,7 +51,7 @@ source /opt/xilinx/xrt/setup.sh
 source /xilinx/software/Vitis/<Vitis_Version>/settings64.sh
 ```
 
-We provide a script to reproduce the results for the RAW24 paper. To run such script execute the following commands:
+We provide a script to reproduce the results for the TRETS paper. To run such script execute the following commands:
 ```
 cd Scripts
 python3 runTests.py
@@ -69,6 +69,8 @@ To run the experiments, within the `Build` folder, enter the folder for the desi
 - `D6` for code distance D = 6;
 - `D7` for code distance D = 7;
 - `D8` for code distance D = 8.
+- `D9` for code distance D = 9.
+- `D10` for code distance D = 10.
 
 Each folder already contains a dataset that can be used to reproduce the results.
 Once in the desired folder, run:

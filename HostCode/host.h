@@ -13,7 +13,7 @@
 #include "common/xcl2.hpp"
 
 #define K 2
-#define D 8
+#define D 7
 #define SYN_LEN D*D
 #define CORR_LEN 2*D*D
 #define DATA_SIZE 4098

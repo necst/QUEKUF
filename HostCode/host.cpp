@@ -22,7 +22,7 @@ float startExecution(cl::CommandQueue& q, cl::Kernel& decoderUF, cl::Buffer& syn
 
     auto duration=std::chrono::duration_cast<std::chrono::nanoseconds>(stop-start);
 
-    printf("Operation concluded in %f nanoseconds\n", (float)duration.count());
+    //printf("Operation concluded in %f nanoseconds\n", (float)duration.count());
 	
 	
 	//Data from Kernel to Host
@@ -42,7 +42,7 @@ int main(int argc, char* argv[]){
 
     FILE* f = fopen(argv[2], "r");
     
-    double frequency = 350000000;
+    double frequency = 222200000;
 
     int accuracy = 0;
 

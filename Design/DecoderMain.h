@@ -9,9 +9,9 @@ extern "C"
 };
 
 
-void readSyn(bool syndrome[SYN_LEN], hls::stream<ap_uint<BITSACCURACY>>& SynBits, hls::stream<bool>& syndrome_cpy);
+void readSyn(const bool syndrome[SYN_LEN], hls::stream<ap_uint<BITSACCURACY>>& SynBits, uint8_t& ones_counter);
 
-void initPU(hls::stream<ap_uint<BITSACCURACY>>& SynBits, hls::stream<PU>& infoPU, hls::stream<bool>& syndrome_cpy);
+void initPU(hls::stream<ap_uint<BITSACCURACY>>& SynBits, hls::stream<PU>& infoPU);
 
 void translation(hls::stream<Edge>& correctionEdges, bool correction[CORR_LEN]);
 

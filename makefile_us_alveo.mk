@@ -56,15 +56,15 @@ LDFLAGS += -lrt -lstdc++
 ############################## Setting up Kernel Variables ##############################
 # Kernel compiler global settings
 VPP_FLAGS += --save-temps --vivado.synth.jobs $(JOBS) --vivado.impl.jobs $(JOBS) --hls.jobs $(JOBS)
-KERN_SRCS += Design/DecoderMain.cpp Design/DecoderMain.h Design/ClusterUnit.cpp Design/ClusterUnit.h Design/Controller.cpp Design/Controller.h Design/Defines.h Design/SurfaceCode.cpp Design/SurfaceCode.h Design/Vector.h
+KERN_SRCS += src/DecoderMain.cpp src/DecoderMain.h src/GrowUnit.cpp src/GrowUnit.h src/PeelUnit.cpp src/PeelUnit.h src/Controller.cpp src/Controller.h src/Defines.h src/ToricCode.cpp src/ToricCode.h src/Vector.h
 
 
 EXECUTABLE = ./$(KERNEL_NAME)
 EMCONFIG_DIR = $(TEMP_DIR)
 
-VPP_CFLAGS += --hls.clock $(HLS_HZ):$(KERNEL_FUNCTION)
+VPP_CFLAGS += --hls.clock $(HLS_HZ):$(KERNEL_FUNCTION) --optimize 3 --config ./config.cfg
 
-VPP_LDFLAGS += --kernel_frequency $(FREQ_MHZ)
+VPP_LDFLAGS += --kernel_frequency $(FREQ_MHZ) --optimize 3 --config ./config.cfg
 
 ############################## Setting Targets ##############################
 .PHONY: all clean cleanall docs emconfig
@@ -80,7 +80,7 @@ build: check-vitis check-device $(BUILD_DIR)/$(KERNEL_NAME).xclbin
 xclbin: build
 
 ############################## Setting Rules for Binary Containers (Building Kernels) ##############################
-$(TEMP_DIR)/$(KERNEL_NAME).xo: Design/DecoderMain.cpp
+$(TEMP_DIR)/$(KERNEL_NAME).xo: src/DecoderMain.cpp
 	mkdir -p $(TEMP_DIR)
 	v++ -c $(VPP_FLAGS) $(VPP_CFLAGS) -t $(TARGET) --platform $(PLATFORM) -k $(KERNEL_FUNCTION) --temp_dir $(TEMP_DIR)  -I'$(<D)' -o'$@' $(KERN_SRCS)
 
