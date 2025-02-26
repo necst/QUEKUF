@@ -85,10 +85,10 @@ Once in the desired folder, run:
 We provide users with the possibility to run tests with custom datasets. 
 The `Scripts/datasetGen.py` script will generate a dataset for a desired code length. This script can be run from the terminal with:
 ```
-python3 Scripts/datasetGen.py <Code_Length>
+python3 Scripts/datasetGen.py <Code_Length> <Error_probability> <T|F>
 ```
-where `<Code_Length>` is the target code length. 
-The script will generate a new dataset called `Decoder_dataset.txt`, which can then be fed to the appropriate decoder with:
+where `<Code_Length>` is the target code length, `<Error_probabilty>` is the error probability of the quantum circuit and `<T|F>` specifies if trivial syndromes should be removed or not. 
+The script will generate a new dataset called `Decoder_dataset.txt` if `F` was specified otherwise it will generate a dataset caled `Real_Decoder_dataset.txt`, which can then be fed to the appropriate decoder with:
 ```
 ./Build/D<Code_Length>/QUEKUF Build/D<Code_Length>/QUEKUF.xclbin <path/to/custom/dataset/Decoder_dataset.txt>
 ```
